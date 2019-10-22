@@ -24,7 +24,7 @@ def topological_sorting(graph):
 
 
 def in_degrees(graph):
-    in_degree_vertexes = {vertex: 0 for (vertex, adjacent) in graph.items()}
+    in_degree_vertexes = {vertex: 0 for (vertex, adjacency_list) in graph.items()}
     for vertex in graph:
         for adjacent in graph[vertex]:
             in_degree_vertexes[adjacent] += 1

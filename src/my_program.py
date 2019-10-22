@@ -1,4 +1,4 @@
-from GraphAlgorithms import sorts
+from GraphAlgorithms import sorts, searches
 
 
 def take_input():
@@ -55,3 +55,5 @@ if __name__ == '__main__':
     my_graph = create_graph()
     print_graph(my_graph)
     print(sorts.topological_sorting(my_graph))
+    print(searches.dfs(my_graph))
+    print(searches.bfs(my_graph, 'a'))
