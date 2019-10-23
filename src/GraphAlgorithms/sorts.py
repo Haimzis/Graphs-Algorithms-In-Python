@@ -1,4 +1,3 @@
-from collections import Counter
 import queue
 
 
@@ -18,9 +17,8 @@ def topological_sorting(graph):
                 sources_queue.queue.append(adjacent)
     for vertex, counter in in_degrees_counter.items():
         if counter != 0:
-            print("No Topological Sort!")
-            return "No Topological Sort!"
-    return top_sort
+            return tuple(("Failure", None))
+    return tuple(("Success", top_sort))
 
 
 def in_degrees(graph):

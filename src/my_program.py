@@ -1,4 +1,5 @@
-from GraphAlgorithms import sorts, searches
+from GraphAlgorithms import sorts, searches, easiest_routes
+from collections import defaultdict
 
 
 def take_input():
@@ -43,17 +44,28 @@ def create_graph():
     return graph
 
 
-def add_edge(graph,vertex,adjacent):
+def add_weights(graph):
+    weights = defaultdict(lambda: 0)
+    for edge in easiest_routes.get_edge_list(graph):
+        edge_weight = int(input(f"enter weight of {edge}:\n"))
+        weights[edge] = edge_weight
+    return weights
+
+
+def add_edge(graph, vertex, adjacent):
     graph[vertex].append(adjacent)
 
 
-def add_vertex(graph,new_vertex):
+def add_vertex(graph, new_vertex):
     graph[new_vertex] = []
 
 
 if __name__ == '__main__':
     my_graph = create_graph()
+    my_weights = add_weights(my_graph)
     print_graph(my_graph)
     print(sorts.topological_sorting(my_graph))
     print(searches.dfs(my_graph))
     print(searches.bfs(my_graph, 'a'))
+    print(easiest_routes.bellman_ford(my_graph, my_weights, 'b'))
+    print(easiest_routes.directed_acyclic(my_graph, my_weights, 'b'))
