@@ -1,4 +1,3 @@
-from collections import defaultdict
 from sys import maxsize
 import queue
 
@@ -89,20 +88,22 @@ class Graph:
         if min(dict(self.weights).values()) < 0:
             return tuple(("Failure", None, None))
         p_queue = queue.PriorityQueue()
-        delta_weights = defaultdict(lambda: maxsize)
-        parents_tree = defaultdict(lambda: None)
+        delta_weights = {}
+        parents_tree = {}
         self.initialize_single_source(source_vertex, delta_weights, parents_tree)
         p_queue.put((0, source_vertex))
         while not p_queue.empty():
             vertex_u = p_queue.get()[1]
             for vertex_v in self.adjacency_list[vertex_u]:
+                if delta_weights[vertex_v] > delta_weights[vertex_u] + self.weights[(vertex_u, vertex_v)]:
+                    p_queue.put((delta_weights[vertex_v], vertex_v))
                 self.relax(vertex_u, vertex_v, delta_weights, parents_tree)
         return tuple(("Success", delta_weights, parents_tree))
 
     def bellman_ford(self, source_vertex):
         edges_list = self.get_edge_list()
-        delta_weights = defaultdict(lambda: maxsize)
-        parents_tree = defaultdict(lambda: None)
+        delta_weights = {}
+        parents_tree = {}
         self.initialize_single_source(source_vertex, delta_weights, parents_tree)
         for _ in range(1, self.adjacency_list.keys().__len__() - 1):
             for (vertex_u, vertex_v) in edges_list:
@@ -113,8 +114,8 @@ class Graph:
         return tuple(("Success", delta_weights, parents_tree))
 
     def directed_acyclic(self, source_vertex):
-        delta_weights = defaultdict(lambda: maxsize)
-        parents_tree = defaultdict(lambda: None)
+        delta_weights = {}
+        parents_tree = {}
         self.initialize_single_source(source_vertex, delta_weights, parents_tree)
         topological_sorted_list = self.topological_sorting()
         if topological_sorted_list[0] == "Failure":
