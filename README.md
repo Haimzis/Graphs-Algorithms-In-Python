@@ -5,5 +5,5 @@ it contains some methods of well-known graph algorithms implementation in python
 -bfs,dfs<br/>
 -topological sort<br/>
 
-![Image description](https://github.com/Haimzis/Graphs-Algorithms-In-Python/blob/master/agraph.png)
+![Image description](https://github.com/Haimzis/Graphs-Algorithms-In-Python/blob/master/agraph.png)<br/>
 Enjoy!
