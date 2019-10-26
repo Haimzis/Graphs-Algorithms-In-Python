@@ -139,3 +139,42 @@ class Graph:
     def get_edge_list(self):
         return [(vertex_v, vertex_u) for vertex_v in self.adjacency_list.keys() for vertex_u in
                 self.adjacency_list[vertex_v]]
+
+    def kruskal(self):
+        forest = []
+        disjoint_sets = DisjointSets()
+        edges_list = sorted(self.get_edge_list(),key=lambda edge: self.weights[edge], reverse=False)
+        for vertex in self.adjacency_list:
+            disjoint_sets.make_set(vertex)
+        for vertex_u,vertex_v in edges_list:
+            if disjoint_sets.find(vertex_v) != disjoint_sets.find(vertex_u):
+                forest.append((vertex_u,vertex_v))
+                disjoint_sets.union(vertex_v,vertex_u)
+        return tuple(forest)
+
+
+class DisjointSets:
+    parent = {}
+    rank = {}
+
+    def make_set(self, vertex):
+        self.parent[vertex] = vertex
+        self.rank[vertex] = 0
+
+    def find(self, vertex):
+        if self.parent[vertex] == vertex:
+            return vertex
+        return self.find(self.parent[vertex])
+
+    def union(self, vertex_u, vertex_v):
+        vertex_u_root = self.find(vertex_u)
+        vertex_v_root = self.find(vertex_v)
+
+        if self.rank[vertex_u_root] > self.rank[vertex_v_root]:
+            self.parent[vertex_v_root] = vertex_u_root
+        elif self.rank[vertex_u_root] < self.rank[vertex_v_root]:
+            self.parent[vertex_u_root] = vertex_v_root
+        else:
+            self.parent[vertex_u_root] = vertex_v_root
+            self.rank[vertex_v_root] += 1
+
