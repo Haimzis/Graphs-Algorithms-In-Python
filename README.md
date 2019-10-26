@@ -4,7 +4,7 @@ it contains some methods of well-known graph algorithms implementation in python
 -Dijkstra, bellman-ford ect..<br/>
 -bfs,dfs<br/>
 -topological sort<br/>
--Kruskal, DisjointSet<br/>
+-Kruskal based on DisjointSet<br/>
 
 ![Image description](https://github.com/Haimzis/Graphs-Algorithms-In-Python/blob/master/agraph.png)<br/>
 Enjoy!
