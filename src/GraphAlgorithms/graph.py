@@ -143,14 +143,17 @@ class Graph:
     def kruskal(self):
         forest = []
         disjoint_sets = DisjointSets()
-        edges_list = sorted(self.get_edge_list(),key=lambda edge: self.weights[edge], reverse=False)
+        edges_list = sorted(self.get_edge_list(), key=lambda edge: self.weights[edge], reverse=False)
         for vertex in self.adjacency_list:
             disjoint_sets.make_set(vertex)
         for vertex_u,vertex_v in edges_list:
             if disjoint_sets.find(vertex_v) != disjoint_sets.find(vertex_u):
-                forest.append((vertex_u,vertex_v))
-                disjoint_sets.union(vertex_v,vertex_u)
+                forest.append((vertex_u, vertex_v))
+                disjoint_sets.union(vertex_v, vertex_u)
         return tuple(forest)
+
+    def prim(self):
+        pass
 
 
 class DisjointSets:
